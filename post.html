@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Iconscout CSS (Buat Icon) -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <title>Admin Dashboard Panel</title>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-name">
+        <div class="logo-image">
+          <img src="img/logo-ntext.png" alt="logo" />
+        </div>
+
+        <span class="logo_name">Zenith DIY</span>
+      </div>
+
+      <div class="menu-items">
+        <ul class="nav-links">
+          <li>
+            <a href="dashboard.html">
+              <i class="uil uil-estate"></i>
+              <span class="link-name">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html">
+              <i class="uil uil-list-ol"></i>
+              <span class="link-name">Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="belumtau.html">
+              <i class="uil uil-list-ol-alt"></i>
+              <span class="link-name">Sub Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="creator.html">
+              <i class="uil uil-users-alt"></i>
+              <span class="link-name">Creator</span>
+            </a>
+          </li>
+          <li>
+            <a href="post.html">
+              <i class="uil uil-apps"></i>
+              <span class="link-name">Post</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout-mode">
+          <li>
+            <a href="#">
+              <i class="uil uil-signout" onclick="logout()"></i>
+              <span class="link-name" onclick="logout()">Logout</span>
+            </a>
+          </li>
+          <li class="mode">
+            <a href="#">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+            <div class="mode-toggle">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="dashboard">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="admin-name">
+          <span>Hello, <span id="adminname"></span></span>
+        </div>
+      </div>
+
+      <div class="dash-content">
+        <div class="overview">
+          <div class="title">
+            <i class="uil uil-tachometer-fast-alt"></i>
+            <span class="text">Add New Post</span>
+          </div>
+          <form class="form-container" id="form-post">
+            <div class="form-group">
+              <input type="text" id="id_post" placeholder="Post ID" required />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="name_post"
+                placeholder="Post Name"
+                required
+              />
+            </div>
+            <select class="form-group" id="category_post" required>
+              <option value="">Select the Category</option>
+            </select>
+            <select class="form-group" id="creator_post" required>
+              <option value="">Select the Creator</option>
+            </select>
+            <div class="form-group">
+              <textarea
+                placeholder="Tools to Use"
+                id="tools_post"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <textarea
+                placeholder="Steps to Make"
+                id="steps_post"
+                required
+              ></textarea>
+            </div>
+            <select class="form-group" id="admin_post" disabled required>
+              <option value="">Admin</option>
+            </select>
+            <div class="file-wrap">
+              <span class="file-text">Select an image:</span>
+              <div class="form-group2">
+                <input
+                  type="file"
+                  id="image_post"
+                  class="inputfile"
+                  accept=".jpg, .png, .svg, .webp, .psd"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Add" />
+            </div>
+          </form>
+        </div>
+
+        <div class="activity">
+          <div class="title title2">
+            <i class="uil uil-clock-three"></i>
+            <span class="text">Post List</span>
+          </div>
+
+          <div class="activity-data">
+            <table id="table_post">
+              <tr>
+                <th>Post Id</th>
+                <th>Post Name</th>
+                <th>Category</th>
+                <th>Creator</th>
+                <th>Image</th>
+                <th>Tools</th>
+                <th>Steps</th>
+                <th>Admin</th>
+                <th>Actions</th>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popup modal buat edit data -->
+    <div id="editModalPost" class="modal mdl">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <span class="edit-text">Edit Post</span>
+        <input
+          type="text"
+          class="modal-input"
+          id="postId"
+          placeholder="Post ID"
+          required
+        />
+        <input
+          type="text"
+          class="modal-input"
+          id="postName"
+          placeholder="Post Name"
+          required
+        />
+        <select class="modal-input" id="postCategory" required>
+          <option value="">Select the Category</option>
+        </select>
+        <select class="modal-input" id="postCreator" required>
+          <option value="">Select the Creator</option>
+        </select>
+        <div class="file-wrap">
+          <span class="file-text">Select an image:</span>
+          <div class="form-group3">
+            <input
+              type="file"
+              id="postImage"
+              class="inputfile"
+              accept=".jpg, .png, .svg, .webp, .psd"
+              required
+            />
+          </div>
+        </div>
+        <textarea
+          class="modal-textarea"
+          id="postTools"
+          placeholder="Tools to Use"
+          required
+        ></textarea>
+        <textarea
+          class="modal-textarea"
+          id="postSteps"
+          placeholder="Steps to Make"
+          required
+        ></textarea>
+        <select class="modal-input" id="postAdmin" required>
+          <option value="">Admin</option>
+        </select>
+        <button class="modal-button" id="savePost">Update</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      firebase.auth().onAuthStateChanged((admins) => {
+        if (admins) {
+          const adminsId = admins.uid;
+          const adminsRef = firebase.database().ref("admins/" + adminsId);
+          adminsRef.once("value", (snapshot) => {
+            const adminsData = snapshot.val();
+            document.getElementById("adminname").textContent =
+              adminsData.adminname;
+          });
+        }
+      });
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log("User is logged in");
+        } else {
+          console.log("User is not logged in, redirecting to adminlogin.html");
+          window.location.href = "index.html";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Iconscout CSS (Buat Icon) -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <title>Admin Dashboard Panel</title>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-name">
+        <div class="logo-image">
+          <img src="img/logo-ntext.png" alt="logo" />
+        </div>
+
+        <span class="logo_name">Zenith DIY</span>
+      </div>
+
+      <div class="menu-items">
+        <ul class="nav-links">
+          <li>
+            <a href="dashboard.html">
+              <i class="uil uil-estate"></i>
+              <span class="link-name">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="category.html">
+              <i class="uil uil-list-ol"></i>
+              <span class="link-name">Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="belumtau.html">
+              <i class="uil uil-list-ol-alt"></i>
+              <span class="link-name">Sub Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="creator.html">
+              <i class="uil uil-users-alt"></i>
+              <span class="link-name">Creator</span>
+            </a>
+          </li>
+          <li>
+            <a href="post.html">
+              <i class="uil uil-apps"></i>
+              <span class="link-name">Post</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout-mode">
+          <li>
+            <a href="#">
+              <i class="uil uil-signout"></i>
+              <span class="link-name">Logout</span>
+            </a>
+          </li>
+          <li class="mode">
+            <a href="#">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+            <div class="mode-toggle">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="dashboard">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="admin-name">
+          <span>Hello, <span id="adminname"></span></span>
+        </div>
+      </div>
+
+      <div class="dash-content">
+        <div class="overview">
+          <div class="title">
+            <i class="uil uil-tachometer-fast-alt"></i>
+            <span class="text">Add Category</span>
+          </div>
+          <form class="form-container">
+            <div class="form-group">
+              <input type="text" placeholder="Category ID" required />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Category Name" required />
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Category Description" required></textarea>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Add" />
+            </div>
+          </form>
+        </div>
+
+        <div class="activity">
+          <div class="title title2">
+            <i class="uil uil-clock-three"></i>
+            <span class="text">Category List</span>
+          </div>
+
+          <div class="activity-data">
+            <table>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>john.doe@example.com</td>
+                <td>
+                  <button class="btn edit">
+                    <i class="uil uil-edit"></i>
+                  </button>
+                  <button class="btn delete">
+                    <i class="uil uil-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>jane.smith@example.com</td>
+                <td>
+                  <button class="btn edit">
+                    <i class="uil uil-edit"></i>
+                  </button>
+                  <button class="btn delete">
+                    <i class="uil uil-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      firebase.auth().onAuthStateChanged((admins) => {
+        if (admins) {
+          const adminsId = admins.uid;
+          const adminsRef = firebase.database().ref("admins/" + adminsId);
+          adminsRef.once("value", (snapshot) => {
+            const adminsData = snapshot.val();
+            document.getElementById("adminname").textContent =
+              adminsData.adminname;
+            document.getElementById("useremail").textContent = adminsData.email;
+          });
+        }
+      });
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log("User is logged in");
+        } else {
+          console.log("User is not logged in, redirecting to adminlogin.html");
+          window.location.href = "index.html";
+        }
+      });
+    </script>
+  </body>
+</html>

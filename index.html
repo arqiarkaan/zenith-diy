@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/login.css" />
+
+    <!-- Iconscout CSS (Buat Icon) -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper wrapper2">
+        <img src="img/logo-ntext.png" alt="logo" />
+        <span class="title"> Login</span>
+        <form class="login-form" id="admin-login">
+          <input
+            type="email"
+            id="email-admin"
+            placeholder="Your email"
+            required
+          />
+          <input
+            type="password"
+            id="password-admin"
+            placeholder="Your Password"
+            required
+          />
+          <div class="seepw">
+            <input type="checkbox" onclick="seePassword()" />
+            <span class="pwtext">Show Password</span>
+          </div>
+
+          <input type="submit" value="Login" />
+          <div class="foot-text2">
+            <div class="line"></div>
+            <span class="sub">or</span>
+            <div class="line"></div>
+          </div>
+          <div class="footer">
+            <a href="forgotpassword.html" class="foot-text">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/account.js"></script>
+  </body>
+</html>
