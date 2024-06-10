@@ -14,7 +14,7 @@
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
 
-    <title>Category - Zenith DIY</title>
+    <title>Admin - Zenith DIY</title>
   </head>
   <body>
     <nav>
@@ -29,7 +29,7 @@
       <div class="menu-items">
         <ul class="nav-links">
           <li>
-            <a href="dashboard.html">
+            <a href="dashboard-super.html">
               <i class="uil uil-estate"></i>
               <span class="link-name">Dashboard</span>
             </a>
@@ -86,31 +86,47 @@
         <div class="overview">
           <div class="title">
             <i class="uil uil-tachometer-fast-alt"></i>
-            <span class="text">Add New Category</span>
+            <span class="text">Add New Admin</span>
           </div>
-          <form class="form-container" id="form-category">
+          <form class="form-container" id="admin-register">
             <div class="form-group">
               <input
                 type="text"
-                id="id_category"
-                placeholder="Category ID"
+                placeholder="Admin Name"
+                id="name-admin"
                 required
               />
             </div>
             <div class="form-group">
               <input
-                type="text"
-                id="name_category"
-                placeholder="Category Name"
+                type="email"
+                placeholder="Admin Email"
+                id="email-admin"
                 required
               />
             </div>
             <div class="form-group">
-              <textarea
-                id="description_category"
-                placeholder="Category Description"
+              <input
+                type="password"
+                placeholder="Admin Password"
+                id="password-admin"
                 required
-              ></textarea>
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                id="confirm-password-admin"
+                required
+              />
+            </div>
+            <div class="seepww">
+              <input
+                type="checkbox"
+                onclick="seePasswordAndConfirmPassword()"
+              />
+              <span class="pwtextt">Show Password</span>
             </div>
             <div class="form-group">
               <input type="submit" value="Add" />
@@ -121,16 +137,14 @@
         <div class="activity">
           <div class="title title2">
             <i class="uil uil-clock-three"></i>
-            <span class="text">Category List</span>
+            <span class="text">Admin List</span>
           </div>
 
           <div class="activity-data">
-            <table id="table_category">
+            <table id="table_admin">
               <tr>
-                <th>Category ID</th>
-                <th>Category Name</th>
-                <th>Category Description</th>
-                <th>Actions</th>
+                <th>Admin Name</th>
+                <th>Admin Email</th>
               </tr>
             </table>
           </div>
@@ -138,39 +152,12 @@
       </div>
     </section>
 
-    <!-- Popup modal buat edit data -->
-    <div id="editModalCategory" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <span class="edit-text">Edit This Category</span>
-        <input
-          type="text"
-          class="modal-input"
-          id="categoryId"
-          placeholder="Input 1"
-        />
-        <input
-          type="text"
-          class="modal-input"
-          id="categoryName"
-          placeholder="Input 2"
-        />
-        <textarea
-          class="modal-textarea"
-          id="categoryDescription"
-          placeholder="Textarea"
-        ></textarea>
-        <button class="modal-button" id="saveCategory">Update</button>
-      </div>
-    </div>
-
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="js/config.js"></script>
     <script src="js/account.js"></script>
-    <script src="js/categories.js"></script>
     <script src="js/script.js"></script>
     <script>
       firebase.auth().onAuthStateChanged((admins) => {
@@ -186,8 +173,8 @@
       });
 
       firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log("User is logged in");
+        if (user && user.email === "darrenarkaan@gmail.com") {
+          console.log("User is logged in with permitted email");
         } else {
           console.log("User is not logged in, redirecting to index.html");
           window.location.href = "index.html";

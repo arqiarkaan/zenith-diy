@@ -14,7 +14,7 @@
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
 
-    <title>Admin Dashboard Panel</title>
+    <title>Dashboard Super Admin - Zenith DIY</title>
   </head>
   <body>
     <nav>
@@ -29,31 +29,25 @@
       <div class="menu-items">
         <ul class="nav-links">
           <li>
-            <a href="dashboard.html">
+            <a href="dashboard-super.html">
               <i class="uil uil-estate"></i>
               <span class="link-name">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="category.html">
+            <a href="category-super.html">
               <i class="uil uil-list-ol"></i>
               <span class="link-name">Category</span>
             </a>
           </li>
           <li>
-            <a href="belumtau.html">
-              <i class="uil uil-list-ol-alt"></i>
-              <span class="link-name">Sub Category</span>
-            </a>
-          </li>
-          <li>
-            <a href="creator.html">
+            <a href="creator-super.html">
               <i class="uil uil-users-alt"></i>
               <span class="link-name">Creator</span>
             </a>
           </li>
           <li>
-            <a href="post.html">
+            <a href="post-super.html">
               <i class="uil uil-apps"></i>
               <span class="link-name">Post</span>
             </a>
@@ -62,8 +56,8 @@
         <ul class="logout-mode">
           <li>
             <a href="#">
-              <i class="uil uil-signout"></i>
-              <span class="link-name">Logout</span>
+              <i class="uil uil-signout" onclick="logout()"></i>
+              <span class="link-name" onclick="logout()">Logout</span>
             </a>
           </li>
           <li class="mode">
@@ -79,7 +73,7 @@
       </div>
     </nav>
 
-    <section class="dashboard">
+    <section class="dashboard dashboard-page">
       <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
 
@@ -88,69 +82,17 @@
         </div>
       </div>
 
-      <div class="dash-content">
-        <div class="overview">
-          <div class="title">
-            <i class="uil uil-tachometer-fast-alt"></i>
-            <span class="text">Add Category</span>
+      <div class="dash-content dash-content-page">
+        <img src="img/logo-wtext.png" alt="" class="dashboard-image-page" />
+        <span class="dashboard-text-page"
+          >Welcome to Zenith DIY Super Admin Dashboard</span
+        >
+        <div class="group-wrap">
+          <div class="group1">
+            <a href="user.html">User Data</a>
           </div>
-          <form class="form-container">
-            <div class="form-group">
-              <input type="text" placeholder="Category ID" required />
-            </div>
-            <div class="form-group">
-              <input type="text" placeholder="Category Name" required />
-            </div>
-            <div class="form-group">
-              <textarea placeholder="Category Description" required></textarea>
-            </div>
-            <div class="form-group">
-              <input type="submit" value="Add" />
-            </div>
-          </form>
-        </div>
-
-        <div class="activity">
-          <div class="title title2">
-            <i class="uil uil-clock-three"></i>
-            <span class="text">Category List</span>
-          </div>
-
-          <div class="activity-data">
-            <table>
-              <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>john.doe@example.com</td>
-                <td>
-                  <button class="btn edit">
-                    <i class="uil uil-edit"></i>
-                  </button>
-                  <button class="btn delete">
-                    <i class="uil uil-trash-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>jane.smith@example.com</td>
-                <td>
-                  <button class="btn edit">
-                    <i class="uil uil-edit"></i>
-                  </button>
-                  <button class="btn delete">
-                    <i class="uil uil-trash-alt"></i>
-                  </button>
-                </td>
-              </tr>
-            </table>
+          <div class="group1">
+            <a href="admin.html">Admin Data</a>
           </div>
         </div>
       </div>
@@ -172,16 +114,15 @@
             const adminsData = snapshot.val();
             document.getElementById("adminname").textContent =
               adminsData.adminname;
-            document.getElementById("useremail").textContent = adminsData.email;
           });
         }
       });
 
       firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log("User is logged in");
+        if (user && user.email === "darrenarkaan@gmail.com") {
+          console.log("User is logged in with permitted email");
         } else {
-          console.log("User is not logged in, redirecting to adminlogin.html");
+          console.log("User is not logged in, redirecting to index.html");
           window.location.href = "index.html";
         }
       });

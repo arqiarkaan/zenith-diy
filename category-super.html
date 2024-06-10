@@ -29,25 +29,25 @@
       <div class="menu-items">
         <ul class="nav-links">
           <li>
-            <a href="dashboard.html">
+            <a href="dashboard-super.html">
               <i class="uil uil-estate"></i>
               <span class="link-name">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="category.html">
+            <a href="category-super.html">
               <i class="uil uil-list-ol"></i>
               <span class="link-name">Category</span>
             </a>
           </li>
           <li>
-            <a href="creator.html">
+            <a href="creator-super.html">
               <i class="uil uil-users-alt"></i>
               <span class="link-name">Creator</span>
             </a>
           </li>
           <li>
-            <a href="post.html">
+            <a href="post-super.html">
               <i class="uil uil-apps"></i>
               <span class="link-name">Post</span>
             </a>
@@ -186,8 +186,8 @@
       });
 
       firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log("User is logged in");
+        if (user && user.email === "darrenarkaan@gmail.com") {
+          console.log("User is logged in with permitted email");
         } else {
           console.log("User is not logged in, redirecting to index.html");
           window.location.href = "index.html";

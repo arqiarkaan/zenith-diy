@@ -14,7 +14,7 @@
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
 
-    <title>Category - Zenith DIY</title>
+    <title>User - Zenith DIY</title>
   </head>
   <body>
     <nav>
@@ -29,25 +29,25 @@
       <div class="menu-items">
         <ul class="nav-links">
           <li>
-            <a href="dashboard.html">
+            <a href="dashboard-super.html">
               <i class="uil uil-estate"></i>
               <span class="link-name">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="category.html">
+            <a href="category-super.html">
               <i class="uil uil-list-ol"></i>
               <span class="link-name">Category</span>
             </a>
           </li>
           <li>
-            <a href="creator.html">
+            <a href="creator-super.html">
               <i class="uil uil-users-alt"></i>
               <span class="link-name">Creator</span>
             </a>
           </li>
           <li>
-            <a href="post.html">
+            <a href="post-super.html">
               <i class="uil uil-apps"></i>
               <span class="link-name">Post</span>
             </a>
@@ -86,31 +86,47 @@
         <div class="overview">
           <div class="title">
             <i class="uil uil-tachometer-fast-alt"></i>
-            <span class="text">Add New Category</span>
+            <span class="text">Add New User</span>
           </div>
-          <form class="form-container" id="form-category">
+          <form class="form-container" id="user-register">
             <div class="form-group">
               <input
                 type="text"
-                id="id_category"
-                placeholder="Category ID"
+                placeholder="User Name"
+                id="name-user"
                 required
               />
             </div>
             <div class="form-group">
               <input
-                type="text"
-                id="name_category"
-                placeholder="Category Name"
+                type="email"
+                placeholder="User Email"
+                id="email-user"
                 required
               />
             </div>
             <div class="form-group">
-              <textarea
-                id="description_category"
-                placeholder="Category Description"
+              <input
+                type="password"
+                placeholder="User Password"
+                id="password-user"
                 required
-              ></textarea>
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                id="confirm-password-user"
+                required
+              />
+            </div>
+            <div class="seepww">
+              <input
+                type="checkbox"
+                onclick="seePasswordAndConfirmPasswordUser()"
+              />
+              <span class="pwtextt">Show Password</span>
             </div>
             <div class="form-group">
               <input type="submit" value="Add" />
@@ -121,16 +137,14 @@
         <div class="activity">
           <div class="title title2">
             <i class="uil uil-clock-three"></i>
-            <span class="text">Category List</span>
+            <span class="text">User List</span>
           </div>
 
           <div class="activity-data">
-            <table id="table_category">
+            <table id="table_user">
               <tr>
-                <th>Category ID</th>
-                <th>Category Name</th>
-                <th>Category Description</th>
-                <th>Actions</th>
+                <th>User Name</th>
+                <th>User Email</th>
               </tr>
             </table>
           </div>
@@ -138,39 +152,13 @@
       </div>
     </section>
 
-    <!-- Popup modal buat edit data -->
-    <div id="editModalCategory" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <span class="edit-text">Edit This Category</span>
-        <input
-          type="text"
-          class="modal-input"
-          id="categoryId"
-          placeholder="Input 1"
-        />
-        <input
-          type="text"
-          class="modal-input"
-          id="categoryName"
-          placeholder="Input 2"
-        />
-        <textarea
-          class="modal-textarea"
-          id="categoryDescription"
-          placeholder="Textarea"
-        ></textarea>
-        <button class="modal-button" id="saveCategory">Update</button>
-      </div>
-    </div>
-
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="js/config.js"></script>
     <script src="js/account.js"></script>
-    <script src="js/categories.js"></script>
+    <script src="js/users.js"></script>
     <script src="js/script.js"></script>
     <script>
       firebase.auth().onAuthStateChanged((admins) => {
@@ -186,8 +174,8 @@
       });
 
       firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log("User is logged in");
+        if (user && user.email === "darrenarkaan@gmail.com") {
+          console.log("User is logged in with permitted email");
         } else {
           console.log("User is not logged in, redirecting to index.html");
           window.location.href = "index.html";
