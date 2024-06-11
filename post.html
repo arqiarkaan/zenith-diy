@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" />
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
 
@@ -90,7 +93,13 @@
           </div>
           <form class="form-container" id="form-post">
             <div class="form-group">
-              <input type="text" id="id_post" placeholder="Post ID" required />
+              <input
+                type="text"
+                id="id_post"
+                placeholder="Post ID"
+                required
+                disabled
+              />
             </div>
             <div class="form-group">
               <input
@@ -130,7 +139,7 @@
                   type="file"
                   id="image_post"
                   class="inputfile"
-                  accept=".jpg, .png, .svg, .webp, .psd"
+                  accept=".jpg, .png, .svg, .webp, .psd, .jpeg"
                   required
                 />
               </div>
@@ -198,7 +207,7 @@
               type="file"
               id="postImage"
               class="inputfile"
-              accept=".jpg, .png, .svg, .webp, .psd"
+              accept=".jpg, .png, .svg, .webp, .psd, .jpeg"
               required
             />
           </div>

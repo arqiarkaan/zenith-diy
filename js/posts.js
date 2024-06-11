@@ -1,6 +1,34 @@
 function reloadPage() {
   window.location.reload();
 }
+// -------- AUTOMATIC ID BEGIN --------
+function fetchAndSetPostId() {
+  var idPostInput = document.getElementById("id_post");
+
+  firebase
+    .database()
+    .ref("posts")
+    .once("value")
+    .then(function (snapshot) {
+      var maxId = 0;
+
+      snapshot.forEach(function (childSnapshot) {
+        var post = childSnapshot.val();
+        var postId = post.id_post;
+        var idNumber = parseInt(postId.replace("PST", ""), 10);
+        if (idNumber > maxId) {
+          maxId = idNumber;
+        }
+      });
+
+      var newId = "PST" + ("000" + (maxId + 1)).slice(-3);
+      idPostInput.value = newId;
+    })
+    .catch(function (error) {
+      console.log(error.message);
+    });
+}
+// -------- AUTOMATIC ID END --------
 
 // ------- ADD POST BEGIN -------
 function addNewPost() {
@@ -54,13 +82,16 @@ function addNewPost() {
     });
 }
 
-const formPost = document.getElementById("form-post");
-if (formPost) {
-  formPost.addEventListener("submit", function (event) {
-    event.preventDefault();
-    addNewPost();
-  });
-}
+window.onload = function () {
+  fetchAndSetPostId();
+  const formPost = document.getElementById("form-post");
+  if (formPost) {
+    formPost.addEventListener("submit", function (event) {
+      event.preventDefault();
+      addNewPost();
+    });
+  }
+};
 // -------- ADD POST END --------
 
 // -------- ADD SELECT OPTION FOR CATEGORY, CREATOR, ADMIN BEGIN --------
@@ -73,7 +104,7 @@ firebase
     var category = snapshot.val();
     console.log("Category:", category);
     var option = document.createElement("option");
-    option.value = category.id_category;
+    option.value = category.name;
     option.text = category.id_category + " - " + category.name;
     selectCategory.appendChild(option);
   });
@@ -85,9 +116,9 @@ firebase
   .ref("creators")
   .on("child_added", function (snapshot) {
     var creators = snapshot.val();
-    console.log("Creator:", creators); 
+    console.log("Creator:", creators);
     var option = document.createElement("option");
-    option.value = creators.id_creator;
+    option.value = creators.name;
     option.text = creators.id_creator + " - " + creators.name;
     selectCreator.appendChild(option);
   });
@@ -131,7 +162,7 @@ firebase
   .on("child_added", function (snapshot) {
     var category = snapshot.val();
     var option = document.createElement("option");
-    option.value = category.id_category;
+    option.value = category.name;
     option.text = category.id_category + " - " + category.name;
     editSelectCategory.appendChild(option);
   });
@@ -144,7 +175,7 @@ firebase
   .on("child_added", function (snapshot) {
     var creator = snapshot.val();
     var option = document.createElement("option");
-    option.value = creator.id_creator;
+    option.value = creator.name;
     option.text = creator.id_creator + " - " + creator.name;
     editSelectCreator.appendChild(option);
   });
@@ -162,7 +193,6 @@ firebase
     editSelectAdmin.appendChild(option);
   });
 // -------- EDIT SELECT OPTION FOR CATEGORY, CREATOR, ADMIN BEGIN --------
-
 
 // -------- READ POST DATA BEGIN --------
 var postTable = document
@@ -190,7 +220,7 @@ firebase
     categoryCell.innerHTML = post.category;
     creatorCell.innerHTML = post.creator;
     imageCell.innerHTML =
-      "<img src='" + post.image + "' style='width:100px;height:100px;'>";
+      "<img src='" + post.image + "' style='width:200px;height:200px;'>";
     toolsCell.innerHTML = post.tools;
     stepsCell.innerHTML = post.steps;
     adminCell.innerHTML = post.admin;
@@ -308,7 +338,6 @@ function editPost(postID, post) {
   closeButton.addEventListener("click", cancelEdit);
 }
 // -------- UPDATE POST END --------
-
 
 // -------- DELETE POST BEGIN --------
 function deletePost(postID) {

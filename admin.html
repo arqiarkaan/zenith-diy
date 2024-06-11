@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" />
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
 
@@ -180,6 +183,25 @@
           window.location.href = "index.html";
         }
       });
+
+      // -------- READ ADMIN DATA BEGIN --------
+      var adminTable = document
+        .getElementById("table_admin")
+        .getElementsByTagName("tbody")[0];
+
+      firebase
+        .database()
+        .ref("admins")
+        .on("child_added", function (snapshot) {
+          var admin = snapshot.val();
+          var row = adminTable.insertRow(-1);
+          var nameCell = row.insertCell(0);
+          var emailCell = row.insertCell(1);
+
+          nameCell.innerHTML = admin.adminname;
+          emailCell.innerHTML = admin.email;
+        });
+      // -------- READ ADMIN DATA END --------
     </script>
   </body>
 </html>

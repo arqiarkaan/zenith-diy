@@ -2,6 +2,35 @@ function reloadPage() {
   window.location.reload();
 }
 
+// -------- AUTOMATIC ID BEGIN --------
+function fetchAndSetCreatorId() {
+  var idCreatorInput = document.getElementById("id_creator");
+
+  firebase
+    .database()
+    .ref("creators")
+    .once("value")
+    .then(function (snapshot) {
+      var maxId = 0;
+
+      snapshot.forEach(function (childSnapshot) {
+        var creator = childSnapshot.val();
+        var creatorId = creator.id_creator;
+        var idNumber = parseInt(creatorId.replace("CRT", ""), 10);
+        if (idNumber > maxId) {
+          maxId = idNumber;
+        }
+      });
+
+      var newId = "CRT" + ("000" + (maxId + 1)).slice(-3);
+      idCreatorInput.value = newId;
+    })
+    .catch(function (error) {
+      console.log(error.message);
+    });
+}
+// -------- AUTOMATIC ID END --------
+
 // -------- ADD CREATOR BEGIN --------
 function addNewCreator() {
   var id_creator = document.getElementById("id_creator").value;
@@ -32,13 +61,17 @@ function addNewCreator() {
     });
 }
 
-const formCreator = document.getElementById("form-creator");
-if (formCreator) {
-  formCreator.addEventListener("submit", function (event) {
-    event.preventDefault();
-    addNewCreator();
-  });
-}
+// Event listener for form submission
+window.onload = function () {
+  fetchAndSetCreatorId();
+  const formCreator = document.getElementById("form-creator");
+  if (formCreator) {
+    formCreator.addEventListener("submit", function (event) {
+      event.preventDefault();
+      addNewCreator();
+    });
+  }
+};
 // -------- ADD CREATOR END --------
 
 // -------- READ CREATOR DATA BEGIN --------

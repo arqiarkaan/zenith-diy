@@ -2,6 +2,36 @@ function reloadPage() {
   window.location.reload();
 }
 
+// -------- AUTOMATIC ID BEGIN --------
+function fetchAndSetCategoryId() {
+  var idCategoryInput = document.getElementById("id_category");
+
+  firebase
+    .database()
+    .ref("categories")
+    .once("value")
+    .then(function (snapshot) {
+      var maxId = 0;
+
+      snapshot.forEach(function (childSnapshot) {
+        var category = childSnapshot.val();
+        var categoryId = category.id_category;
+        var idNumber = parseInt(categoryId.replace("CAT", ""), 10);
+        if (idNumber > maxId) {
+          maxId = idNumber;
+        }
+      });
+
+      var newId = "CAT" + ("000" + (maxId + 1)).slice(-3);
+      idCategoryInput.value = newId;
+    })
+    .catch(function (error) {
+      console.log(error.message);
+    });
+}
+// -------- AUTOMATIC ID END --------
+
+
 // -------- ADD CATEGORY BEGIN --------
 function addNewCategory() {
   var id_category = document.getElementById("id_category").value;
@@ -32,13 +62,17 @@ function addNewCategory() {
     });
 }
 
-const formCategory = document.getElementById("form-category");
-if (formCategory) {
-  formCategory.addEventListener("submit", function (event) {
-    event.preventDefault();
-    addNewCategory();
-  });
-}
+// Event listener for form submission
+window.onload = function () {
+  fetchAndSetCategoryId();
+  const formCategory = document.getElementById("form-category");
+  if (formCategory) {
+    formCategory.addEventListener("submit", function (event) {
+      event.preventDefault();
+      addNewCategory();
+    });
+  }
+};
 // -------- ADD CATEGORY END --------
 
 // -------- READ CATEGORY DATA BEGIN --------

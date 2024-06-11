@@ -19,7 +19,7 @@
 
   --tran-05: all 0.5s ease;
   --tran-03: all 0.3s ease;
-  --tran-03: all 0.2s ease;
+  --tran-02: all 0.2s ease;
 }
 
 body {
@@ -375,14 +375,16 @@ textarea {
   width: 100%;
 }
 .form-group2 {
-  width: 38%;
+  width: 100%;
+  max-width: 250px;
   border: 0.5px solid var(--box-shadow);
   padding: 6px;
   border-radius: 5px;
   margin-top: 5px;
 }
 .form-group3 {
-  width: 55%;
+  width: 100%;
+  max-width: 250px;
   border: 0.5px solid var(--box-shadow);
   padding: 6px;
   border-radius: 5px;
@@ -422,7 +424,7 @@ select {
 .form-group input[type="submit"]:hover {
   background-color: #368139;
 }
-input[type=file]::file-selector-button {
+input[type="file"]::file-selector-button {
   margin-right: 20px;
   border: none;
   background: #084cdf;
@@ -430,10 +432,10 @@ input[type=file]::file-selector-button {
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
-  transition: background .2s ease-in-out;
+  transition: background 0.2s ease-in-out;
 }
 
-input[type=file]::file-selector-button:hover {
+input[type="file"]::file-selector-button:hover {
   background: #0d45a5;
 }
 
@@ -461,7 +463,6 @@ input[type=file]::file-selector-button:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .modal-content {
-  overflow: scroll;
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -515,6 +516,8 @@ input[type=file]::file-selector-button:hover {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 .group1 {
   width: 100%;
@@ -526,7 +529,7 @@ input[type=file]::file-selector-button:hover {
 .group1:hover {
   background-color: var(--second-color);
 }
-.group1 a{
+.group1 a {
   color: var(--text-color);
   text-decoration: none;
   font-size: 22px;
@@ -593,6 +596,25 @@ input[type=file]::file-selector-button:hover {
 @media (max-width: 560px) {
   .dash-content .boxes .box {
     width: 100%;
+  }
+  .title .text {
+    font-size: 18px !important;
+  }
+  .title i {
+    font-size: 18px !important;
+  }
+  .dashboard-text-page {
+    font-size: 18px;
+    overflow: hidden;
+  }
+  .group-wrap {
+    flex-direction: column;
+  }
+  .admin-name {
+    font-size: 14px;
+  }
+  .group1 {
+    max-width: 180px;
   }
 }
 @media (max-width: 400px) {

@@ -39,7 +39,9 @@ function adminRegister(event) {
   const adminname = document.getElementById("name-admin").value;
   const email = document.getElementById("email-admin").value;
   const password = document.getElementById("password-admin").value;
-  const confirmPassword = document.getElementById("confirm-password-admin").value;
+  const confirmPassword = document.getElementById(
+    "confirm-password-admin"
+  ).value;
 
   if (password !== confirmPassword) {
     alert("Password do not match! Please try again");
@@ -78,25 +80,6 @@ if (registerForm) {
   registerForm.addEventListener("submit", adminRegister);
 }
 // -------- REGISTER END --------
-
-// -------- READ ADMIN DATA BEGIN --------
-var adminTable = document
-  .getElementById("table_admin")
-  .getElementsByTagName("tbody")[0];
-
-firebase
-  .database()
-  .ref("admins")
-  .on("child_added", function (snapshot) {
-    var admin = snapshot.val();
-    var row = adminTable.insertRow(-1);
-    var nameCell = row.insertCell(0);
-    var emailCell = row.insertCell(1);
-
-    nameCell.innerHTML = admin.adminname;
-    emailCell.innerHTML = admin.email;
-  });
-// -------- READ ADMIN DATA END --------
 
 // -------- RESET PASSWORD BEGIN --------
 function resetPasswordForm(event) {
