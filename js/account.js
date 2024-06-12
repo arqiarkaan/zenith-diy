@@ -81,60 +81,6 @@ if (registerForm) {
 }
 // -------- REGISTER END --------
 
-// -------- RESET PASSWORD BEGIN --------
-function resetPasswordForm(event) {
-  event.preventDefault();
-  const currentPassword = document.getElementById(
-    "admin-currentpassword"
-  ).value;
-  const newPassword = document.getElementById("admin-newpassword").value;
-  const confirmPassword = document.getElementById("confirm-password").value;
-
-  if (newPassword !== confirmPassword) {
-    alert("Passwords do not match! Please try again.");
-    return;
-  }
-
-  // Mendapatkan pengguna saat ini yang terautentikasi
-  const user = firebase.auth().currentUser;
-
-  if (user) {
-    const email = user.email; // Mendapatkan email dari pengguna saat ini
-    // Membuat credential dari email dan password saat ini
-    const credential = firebase.auth.EmailAuthProvider.credential(
-      email,
-      currentPassword
-    );
-
-    // Melakukan re-authentikasi pengguna
-    user
-      .reauthenticateWithCredential(credential)
-      .then(() => {
-        // Mengupdate password pengguna di Firebase Authentication setelah re-authentikasi berhasil
-        return user.updatePassword(newPassword);
-      })
-      .then(() => {
-        alert("Password updated successfully!");
-      })
-      .catch((error) => {
-        console.error(error.message);
-        if (error.code === "auth/wrong-password") {
-          alert("Current password is incorrect. Please try again.");
-        } else {
-          alert("Error updating password: " + error.message);
-        }
-      });
-  } else {
-    alert("No authenticated user found. Please log in and try again.");
-  }
-}
-
-const resetAdminPasswordForm = document.getElementById("reset-password-form");
-if (resetAdminPasswordForm) {
-  resetAdminPasswordForm.addEventListener("submit", resetPasswordForm);
-}
-// -------- RESET PASSWORD END --------
-
 // -------- LOGOUT START --------
 function logout() {
   if (window.confirm("Are you sure you want to logout?")) {
