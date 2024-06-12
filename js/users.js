@@ -8,7 +8,9 @@ function userRegister(event) {
   const username = document.getElementById("name-user").value;
   const emailUser = document.getElementById("email-user").value;
   const passwordUser = document.getElementById("password-user").value;
-  const confirmPasswordUser = document.getElementById("confirm-password-user").value;
+  const confirmPasswordUser = document.getElementById(
+    "confirm-password-user"
+  ).value;
 
   if (passwordUser !== confirmPasswordUser) {
     alert("Password do not match! Please try again");
@@ -59,7 +61,7 @@ firebase
   .ref("users")
   .on("child_added", function (snapshot) {
     var user = snapshot.val();
-    var row = userTable.insertRow(-1);
+    var row = userTable.insertRow(0);
     var nameCell = row.insertCell(0);
     var emailCell = row.insertCell(1);
 
@@ -67,3 +69,27 @@ firebase
     emailCell.innerHTML = user.email;
   });
 // -------- READ USER DATA END --------
+
+// -------- SEARCH BEGIN --------
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  var filter = this.value.toLowerCase();
+  var rows = userTable.getElementsByTagName("tr");
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName("td");
+    var match = false;
+    for (var j = 0; j < cells.length; j++) {
+      if (cells[j]) {
+        if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+          match = true;
+          break;
+        }
+      }
+    }
+    if (match) {
+      rows[i].style.display = "";
+    } else {
+      rows[i].style.display = "none";
+    }
+  }
+});
+// -------- SEARCH END --------

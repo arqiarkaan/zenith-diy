@@ -204,7 +204,7 @@ firebase
   .ref("posts")
   .on("child_added", function (snapshot) {
     var post = snapshot.val();
-    var row = postTable.insertRow(-1);
+    var row = postTable.insertRow(0);
     var idCell = row.insertCell(0);
     var nameCell = row.insertCell(1);
     var categoryCell = row.insertCell(2);
@@ -356,3 +356,27 @@ function deletePost(postID) {
   }
 }
 // -------- DELETE POST END --------
+
+// -------- SEARCH BEGIN --------
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  var filter = this.value.toLowerCase();
+  var rows = postTable.getElementsByTagName("tr");
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName("td");
+    var match = false;
+    for (var j = 0; j < cells.length; j++) {
+      if (cells[j]) {
+        if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+          match = true;
+          break;
+        }
+      }
+    }
+    if (match) {
+      rows[i].style.display = "";
+    } else {
+      rows[i].style.display = "none";
+    }
+  }
+});
+// -------- SEARCH END --------

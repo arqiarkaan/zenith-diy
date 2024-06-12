@@ -404,6 +404,28 @@ textarea {
   border-radius: 5px;
   box-sizing: border-box;
 }
+.form-group-search {
+  position: relative;
+  width: 300px;
+  margin-bottom: 25px;
+  margin-top: 0;
+}
+.form-group-search input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.form-group-search i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #aaa;
+}
 select {
   width: 100%;
   padding: 8px;

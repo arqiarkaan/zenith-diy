@@ -84,7 +84,7 @@ firebase
   .ref("creators")
   .on("child_added", function (snapshot) {
     var creator = snapshot.val();
-    var row = creatorTable.insertRow(-1);
+    var row = creatorTable.insertRow(0);
     var idCell = row.insertCell(0);
     var nameCell = row.insertCell(1);
     var descriptionCell = row.insertCell(2);
@@ -179,3 +179,27 @@ function deleteThisCreator(creatorID) {
   }
 }
 // -------- DELETE THE CATEGORY END --------
+
+// -------- SEARCH BEGIN --------
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  var filter = this.value.toLowerCase();
+  var rows = creatorTable.getElementsByTagName("tr");
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName("td");
+    var match = false;
+    for (var j = 0; j < cells.length; j++) {
+      if (cells[j]) {
+        if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+          match = true;
+          break;
+        }
+      }
+    }
+    if (match) {
+      rows[i].style.display = "";
+    } else {
+      rows[i].style.display = "none";
+    }
+  }
+});
+// -------- SEARCH END --------

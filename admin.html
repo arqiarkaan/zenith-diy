@@ -142,13 +142,23 @@
             <i class="uil uil-clock-three"></i>
             <span class="text">Admin List</span>
           </div>
-
+          <div class="form-group-search">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Type to search..."
+            />
+            <i class="uil uil-search"></i>
+          </div>
           <div class="activity-data">
             <table id="table_admin">
-              <tr>
-                <th>Admin Name</th>
-                <th>Admin Email</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th>Admin Name</th>
+                  <th>Admin Email</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -194,7 +204,7 @@
         .ref("admins")
         .on("child_added", function (snapshot) {
           var admin = snapshot.val();
-          var row = adminTable.insertRow(-1);
+          var row = adminTable.insertRow(0);
           var nameCell = row.insertCell(0);
           var emailCell = row.insertCell(1);
 
@@ -202,6 +212,32 @@
           emailCell.innerHTML = admin.email;
         });
       // -------- READ ADMIN DATA END --------
+
+      // -------- SEARCH BEGIN --------
+      document
+        .getElementById("searchInput")
+        .addEventListener("keyup", function () {
+          var filter = this.value.toLowerCase();
+          var rows = adminTable.getElementsByTagName("tr");
+          for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var match = false;
+            for (var j = 0; j < cells.length; j++) {
+              if (cells[j]) {
+                if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                  match = true;
+                  break;
+                }
+              }
+            }
+            if (match) {
+              rows[i].style.display = "";
+            } else {
+              rows[i].style.display = "none";
+            }
+          }
+        });
+      // -------- SEARCH END --------
     </script>
   </body>
 </html>
