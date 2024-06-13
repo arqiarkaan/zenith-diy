@@ -264,9 +264,10 @@ nav.close ~ .dashboard .top {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 .dashboard-image-page {
-  width: 70%;
+  width: 350px;
 }
 .dashboard-text-page {
   font-size: 25px;
@@ -563,6 +564,79 @@ input[type="file"]::file-selector-button:hover {
 }
 .group1 a:hover {
   color: #fff;
+}
+
+/* Container styling */
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+/* Individual info boxes styling */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  width: 200px;
+  height: 150px;
+}
+
+/* Different background colors for each info box */
+.info1 {
+  background-color: #ff6b6b; /* Red */
+}
+
+.info2 {
+  background-color: #4ecdc4; /* Turquoise */
+}
+
+.info3 {
+  background-color: #ffcc5c; /* Yellow */
+}
+
+.info4 {
+  background-color: #5d9cec; /* Blue */
+}
+
+.info5 {
+  background-color: #ff8a65; /* Orange */
+}
+
+.icon-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.infonum {
+  font-size: 40px;
+}
+
+.icon-info i {
+  font-size: 24px;
+}
+
+@media (max-width: 560px) {
+  .info-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .info {
+    width: 45%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .info {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 1000px) {

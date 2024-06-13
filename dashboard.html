@@ -86,10 +86,33 @@
       </div>
 
       <div class="dash-content dash-content-page">
+        <div class="info-container">
+          <div class="info info1">
+            <div class="icon-info">
+              <i class="uil uil-postcard"></i>
+              <span>Category</span>
+            </div>
+            <span id="categorySum" class="infonum">0</span>
+          </div>
+          <div class="info info2">
+            <div class="icon-info">
+              <i class="uil uil-user"></i>
+              <span>Creator</span>
+            </div>
+            <span id="creatorSum" class="infonum">0</span>
+          </div>
+          <div class="info info3">
+            <div class="icon-info">
+              <i class="uil uil-apps"></i>
+              <span>Post</span>
+            </div>
+            <span id="postSum" class="infonum">0</span>
+          </div>
+        </div>
+        <img src="img/logo-wtext.png" alt="" class="dashboard-image-page" />
         <span class="dashboard-text-page"
           >Welcome to Zenith DIY Admin Dashboard</span
         >
-        <img src="img/logo-wtext.png" alt="" class="dashboard-image-page" />
       </div>
     </section>
 
@@ -121,6 +144,19 @@
           window.location.href = "index.html";
         }
       });
+
+      function updateCount(entity, spanId) {
+        firebase
+          .database()
+          .ref(entity)
+          .on("value", function (snapshot) {
+            var count = snapshot.numChildren();
+            document.getElementById(spanId).innerText = count;
+          });
+      }
+      updateCount("categories", "categorySum");
+      updateCount("creators", "creatorSum");
+      updateCount("posts", "postSum");
     </script>
   </body>
 </html>
